@@ -21,6 +21,8 @@ Each unit test should be divided in 3 phases:
 Helpful Jasmine methods:
 * `pending();` - Marks the test as not yet ready to be run
 * `fail();` - Forces the test to fail
+* `xdescribe()` / `xit()` => disabling tests 
+* `fdescribe()` / `fit()` => **focus** only this test 
 
 #### Mocking dependencies
 We should always mock external dependencies of the service/component that we are testing:

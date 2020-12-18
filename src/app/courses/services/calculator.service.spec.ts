@@ -6,6 +6,7 @@ describe('CalculatorService', () => {
   let calculator: CalculatorService;
   let loggerSpy: any;
 
+  // Setup Phase
   beforeEach(() => {
     loggerSpy = jasmine.createSpyObj('LoggerService', ['log']);
 
@@ -17,25 +18,25 @@ describe('CalculatorService', () => {
     });
 
     calculator = TestBed.inject(CalculatorService);
-
   });
 
   it('should add two numbers', () => {
-
+    // Execution Phase
     const result = calculator.add(2, 2);
 
+    // Test Assertions Phase
     expect(result).toBe(4);
-
     expect(loggerSpy.log).toHaveBeenCalledTimes(1);
 
   });
 
   it('should subtract two numbers', () => {
+    // Execution Phase
     const result = calculator.subtract(2, 2);
 
+    // Test Assertions Phase
     expect(result).toBe(0, 'unexpected substract result');
-
-    loggerSpy.log.and.returnValue();
+    expect(loggerSpy.log).toHaveBeenCalledTimes(1);
 
   });
 
