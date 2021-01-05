@@ -21,9 +21,38 @@ Each unit test should be divided in 3 phases:
 Helpful Jasmine methods:
 * `pending();` - Marks the test as not yet ready to be run
 * `fail();` - Forces the test to fail
-* `xdescribe()` / `xit()` => disabling tests 
+* `xdescribe()` / `xit()` => **disables** tests 
 * `fdescribe()` / `fit()` => **focus** only this test 
 
+### Angular Service Testing
 #### Mocking dependencies
 We should always mock external dependencies of the service/component that we are testing:
 * use `jasmine.createSpyObj()` to mock external dependencies
+
+#### HTTP testing
+Use `httpTestingController` to mock HTTP calls. <br>For example:
+```typescript
+// Mock HTTP request
+const mockRequest = httpTestingController.expectOne('/api/courses/12');
+
+    expect(mockRequest.request.method).toEqual('GET');
+
+    // Trigger the mock HTTP request and sets the response payload
+    mockRequest.flush(COURSES[12]);
+    
+    // Or trigger the response with an error
+    mockRequest.flush('Save course failed', {
+      status: 500,
+      statusText: 'Internal Server Error'
+    });
+```
+
+### Angular Component Testing
+#### Setup
+We only need to `import` the Module where the `component` is declared.
+
+#### Utilities
+`ComponentFixture` - utility type that brings a lot of features that we need to test a component <br>
+`fixture.debugElement` - utility to query the DOM element and debug the component <br>
+`fixture.detectChanges()` - synchronously updates the DOM <br>
+`NoopAnimationsModule` - When we need to test a component that has Angular Material components with animations
