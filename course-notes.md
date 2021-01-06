@@ -101,7 +101,7 @@ Example:
 });
 ```
 
-#### Angular's zoneJS `fakeAsync() + tick()`
+#### Angular's zone.js `fakeAsync() + tick()`
 
 We can use `fakeAsync()` to mark our test as having asynchronous calls, and then use `tick()` to simulate the passing of
 time.
@@ -127,26 +127,46 @@ Example:
 }));
 ```
 
-#### Angular's zoneJS `fakeAsync() + flush()`
-We can use `flush()` to force the test to run all asynchronous code that was pending. 
+#### Angular's zone.js `fakeAsync() + flush()`
+
+We can use `flush()` to force the test to run all asynchronous code that was pending.
 
 Example:
+
 ```typescript
 it('Asynchronous test example - setTimeout()', fakeAsync(() => {
 
-    let test = false;
+  let test = false;
 
-    setTimeout(() => {});
+  setTimeout(() => {
+  });
 
-    setTimeout(() => {
+  setTimeout(() => {
 
-      test = true;
+    test = true;
 
-      expect(test).toBeTruthy();
 
-    }, 1000);
+  }, 1000);
 
-    flush();
+  flush();
 
-  }));
+  expect(test).toBeTruthy();
+
+}));
 ```
+
+#### Browser executions queues: microTasks vs Tasks
+
+The browser has 2 execution queues: microTasks and Tasks.<br>
+The microTasks queue has higher priority than the Tasks, which means that the browser will first execute all microTasks
+before starting the execution of the Tasks.
+
+`Promises` are microTasks, and operations like `setTimeout()` are considered Tasks.
+
+Which means that `Promises` are executed before `setTimeout()`.
+
+Handling the execution of microTasks and Tasks:
+
+* `flushMicrotasks()` - forces the execution of all microTasks<br>
+* `flush()` - executes all Tasks
+
