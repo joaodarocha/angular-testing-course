@@ -39,9 +39,6 @@ describe('CoursesCardListComponent', () => {
 
     fixture.detectChanges();
 
-    console.log(el.nativeElement.outerHTML);
-
-
     const cards = el.queryAll(By.css('.course-card'));
 
     expect(cards).toBeTruthy('Could not find cards');
