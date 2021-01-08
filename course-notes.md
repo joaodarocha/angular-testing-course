@@ -155,7 +155,7 @@ it('Asynchronous test example - setTimeout()', fakeAsync(() => {
 }));
 ```
 
-#### Browser executions queues: microTasks vs Tasks
+#### Browser execution queues: microTasks vs Tasks
 
 The browser has 2 execution queues: microTasks and Tasks.<br>
 The microTasks queue has higher priority than the Tasks, which means that the browser will first execute all microTasks
